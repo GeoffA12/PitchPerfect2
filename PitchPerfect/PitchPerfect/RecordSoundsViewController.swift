@@ -21,17 +21,17 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         // Do any additional setup after loading the view.
     }
     
+    // MARK: - Code that executes right before the view appears.
     // This function is called right before the View loads onto the Interface
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("viewWillAppear was called")
         stopRecordingButton.isEnabled = false;
     }
+    
+    // MARK: - Setting up audio file path through IBAction on Record button
 
     @IBAction func recordFunction(_ sender: Any) {
-        recordingLabel.text = "Recording in progress"
-        recordButton.isEnabled = false
-        stopRecordingButton.isEnabled = true
+        setRecordingState(isActive: true)
         
         // This line grabs the application's document directory, stores it within a string in the dirPath constant.
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
@@ -61,15 +61,19 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         
     }
     
+    // MARK: - IBAction for Stop Button on RecordSoundsViewController
     @IBAction func stopRecording(_ sender: Any) {
-        recordButton.isEnabled = true
-        stopRecordingButton.isEnabled = false
-        recordingLabel.text = "Tap to record"
+        setRecordingState(isActive: false)
+        //recordButton.isEnabled = true
+        //stopRecordingButton.isEnabled = false
+        //recordingLabel.text = "Tap to record"
         audioRecorder.stop()
         let audioSession = AVAudioSession.sharedInstance()
         try! audioSession.setActive(false)
     }
     
+    
+    // MARK: - Audio Recorder Delegate
     // We can use the audioRecorderDidFinishRecording function from the AVAudioRecorder
     // class because we set this view controller as a delegate of the AVAudioRecorder class.
     // Therefore, our view controller conforms and we can use different audio functions in
@@ -86,6 +90,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
+    // MARK: - Prepare RecordSoundsViewController segue to PlaySoundsViewController
     // Function called on the existing view controller to help it prepare for the segue. 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Check if this is the segue that we want. It needs to be the stopRecordingSegue
@@ -99,6 +104,19 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
             let recordedAudioURL = sender as! URL
             // Set the recordedAudio URL in the PlaySoundsViewController.
             playSoundsVC.recordedAudioURL = recordedAudioURL
+        }
+    }
+    
+    func setRecordingState(isActive: Bool) {
+        if isActive {
+            recordingLabel.text = "Recording in progress"
+            recordButton.isEnabled = false
+            stopRecordingButton.isEnabled = true
+        }
+        else {
+            recordButton.isEnabled = true
+            stopRecordingButton.isEnabled = false
+            recordingLabel.text = "Tap to record"
         }
     }
     
