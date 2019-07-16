@@ -13,10 +13,10 @@ import AVFoundation
 class PlaySoundsViewController: UIViewController {
     
     // 6 IB Outlets for the Playback buttons, and for the stop button.
-    @IBOutlet weak var snailButton: UIButton!
-    @IBOutlet weak var chipmunkButton: UIButton!
-    @IBOutlet weak var rabbitButton: UIButton!
-    @IBOutlet weak var vaderButton: UIButton!
+    @IBOutlet weak var slowButton: UIButton!
+    @IBOutlet weak var highPitchButton: UIButton!
+    @IBOutlet weak var fastButton: UIButton!
+    @IBOutlet weak var lowPitchButton: UIButton!
     @IBOutlet weak var echoButton: UIButton!
     @IBOutlet weak var reverbButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
@@ -82,6 +82,18 @@ class PlaySoundsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureUI(.notPlaying)
+        slowButton.contentMode = .center
+        slowButton.imageView?.contentMode = .scaleAspectFit
+        fastButton.contentMode = .center
+        fastButton.imageView?.contentMode = .scaleAspectFit
+        highPitchButton.contentMode = .center
+        highPitchButton.imageView?.contentMode = .scaleAspectFit
+        lowPitchButton.contentMode = .center
+        lowPitchButton.imageView?.contentMode = .scaleAspectFit
+        echoButton.contentMode = .center
+        echoButton.imageView?.contentMode = .scaleAspectFit
+        reverbButton.contentMode = .center
+        reverbButton.imageView?.contentMode = .scaleAspectFit
     }
 
 
