@@ -182,10 +182,10 @@ extension PlaySoundsViewController: AVAudioPlayerDelegate {
     
     // Another helper function used by configuireUI function which will either enable or disable all of the playback buttons depending on which boolean values were passed in.
     func setPlayButtonsEnabled(_ enabled: Bool) {
-        snailButton.isEnabled = enabled
-        chipmunkButton.isEnabled = enabled
-        rabbitButton.isEnabled = enabled
-        vaderButton.isEnabled = enabled
+        slowButton.isEnabled = enabled
+        highPitchButton.isEnabled = enabled
+        fastButton.isEnabled = enabled
+        lowPitchButton.isEnabled = enabled
         echoButton.isEnabled = enabled
         reverbButton.isEnabled = enabled
     }
